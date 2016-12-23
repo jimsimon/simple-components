@@ -1,0 +1,20 @@
+<html>
+<head>
+    <script src="../node_modules/webcomponents.js-v1/dist/webcomponents-lite.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="simple-test-framework.js"></script>
+</head>
+<body>
+<script>
+    var expect = chai.expect;
+    simpleTestFile({ ui: "bdd" }, () => {
+        describe("test describe", () => {
+            it('runs a test', () => {
+                expect(true).to.be.true;
+            });
+        });
+    });
+</script>
+</body>
+</html>
