@@ -10,38 +10,24 @@ module.exports = function (config) {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: [],
+        frameworks: ['mocha', 'chai', 'web-components'],
 
 
         // list of files / patterns to load in the browser
         files: [
             {
-                pattern: 'node_modules/webcomponents.js-v1/dist/webcomponents-lite.js',
-                watched: false,
-                included: false
-            },
-            {
-                pattern: 'node_modules/chai/chai.js',
-                watched: false,
-                included: false
-            },
-            {
-                pattern: 'node_modules/mocha/mocha.js',
-                watched: false,
-                included: false
-            },
-            {
-                pattern: 'test/simple-test-framework.js',
+                pattern: 'simple-**/*.html',
                 watched: true,
                 included: false
             },
             {
-                pattern: 'test/*.test.html',
+                pattern: 'simple-**/test/*.test.html',
                 watched: true,
                 included: false
-            },
-            'test/simple-test-runner.js'
+            }
         ],
+
+        middleware: ['proxy-node-modules'],
 
 
         // list of files to exclude
