@@ -1,0 +1,47 @@
+<html>
+<head>
+    <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../../karma-web-components/framework.js"></script>
+
+    <link rel="import" href="../../../test-fixture/test-fixture.html">
+    <link rel="import" href="../simple-switcher.html">
+</head>
+<body>
+<test-fixture id="test-fixture">
+    <template>
+        <simple-switcher>
+            <span id="hello">World</span>
+            <span id="goodbye">Earth</span>
+        </simple-switcher>
+    </template>
+</test-fixture>
+<script>
+    describe('simple-switcher', function () {
+        let switcher;
+
+        beforeEach(function () {
+            switcher = document.getElementById('test-fixture').create();
+        });
+
+        afterEach(function () {
+            document.getElementById('test-fixture').restore();
+        });
+
+        it('defaults to selecting the first child', function () {
+            expect(switcher.selectedIndex).to.be.equal(0);
+            expect(switcher.selected).to.be.ok;
+            expect(switcher.selected.id).to.be.equal('hello');
+            expect(switcher.selected).to.have.class('simple-selected');
+        });
+
+        it('changes the selected element when selectedIndex is changed', function () {
+            switcher.selectedIndex = 1;
+            expect(switcher.selected).to.be.ok;
+            expect(switcher.selected.id).to.be.equal('goodbye');
+            expect(switcher.selected).to.have.class('simple-selected');
+            expect(switcher.assignedElements[0]).not.to.have.class('simple-selected');
+        });
+    })
+</script>
+</body>
+</html>

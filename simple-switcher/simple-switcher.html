@@ -1,0 +1,65 @@
+<link rel="import" href="../../polymer/polymer.html">
+<!--
+`simple-switcher` is an element for indicating the separation of sections of content in a page.
+
+ Example:
+ <simple-separator><h1>A level 1 heading!</h1></simple-separator>
+
+ The following custom properties and mixins are also available for styling:
+
+ Custom property | Description | Default
+ ----------------|-------------|----------
+ `--property` | A simple description | `default`
+
+ @demo simple-separator/demo/index.html
+-->
+<dom-module id="simple-switcher">
+    <template>
+        <slot id="slot"></slot>
+    </template>
+    <script>
+        Polymer({
+            is: 'simple-switcher',
+            properties: {
+                selectedIndex: {
+                    type: Number,
+                    value: 0
+                },
+                assignedNodes: Array,
+                assignedElements: {
+                    type: Array,
+                    computed: '_computeAssignedElements(assignedNodes)'
+                },
+                selected: {
+                    type: Node,
+                    computed: '_computeSelected(selectedIndex, assignedElements)',
+                    observer: '_selectedChanged'
+                }
+            },
+            attached: function () {
+                this.assignedNodes = this.$.slot.assignedNodes();
+            },
+            _computeAssignedElements: function (assignedNodes) {
+                return assignedNodes.filter((node) => node.nodeType === Node.ELEMENT_NODE);
+            },
+            _computeSelected: function (selectedIndex, assignedElements) {
+                if (assignedElements == null) {
+                    return null;
+                }
+
+                if (selectedIndex !== undefined && selectedIndex >= assignedElements.length || selectedIndex < 0) {
+                    throw new Error("Invalid selectedIndex");
+                }
+                return assignedElements[selectedIndex];
+            },
+            _selectedChanged: function (newValue, oldValue) {
+                if (oldValue) {
+                    oldValue.classList.remove('simple-selected');
+                }
+                if (newValue) {
+                    newValue.classList.add('simple-selected');
+                }
+            }
+        });
+    </script>
+</dom-module>
