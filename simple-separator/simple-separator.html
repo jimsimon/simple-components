@@ -36,9 +36,7 @@
             }
         </style>
         <span class="line"></span>
-        <template is="dom-if" if="[[attachedNodesExist()]]">
-            <span class="content"><slot id="contentSlot"></slot></span>
-        </template>
+        <span class="content" hidden="[[!_assignedElementsExist]]"><slot id="slot"></slot></span>
         <span class="line"></span>
     </template>
     <script>
@@ -47,8 +45,25 @@
             hostAttributes: {
                 role: 'separator'
             },
-            attachedNodesExist() {
-                return this.querySelector('*') != null;
+            properties: {
+                _assignedNodes: Array,
+                _assignedElements: {
+                    type: Array,
+                    computed: '_computeAssignedElements(_assignedNodes)'
+                },
+                _assignedElementsExist: {
+                    type: Boolean,
+                    computed: '_computeAssignedElementsExist(_assignedElements)'
+                }
+            },
+            attached: function () {
+                this._assignedNodes = this.$.slot.assignedNodes();
+            },
+            _computeAssignedElements: function (assignedNodes) {
+                return assignedNodes.filter((node) => node.nodeType === Node.ELEMENT_NODE);
+            },
+            _computeAssignedElementsExist(assignedElements) {
+                return assignedElements.length > 0;
             }
         });
     </script>
