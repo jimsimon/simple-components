@@ -1,0 +1,44 @@
+<html>
+<head>
+    <title>Simple Switcher Demo</title>
+    <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../simple-switcher.html">
+
+    <style>
+        .simple-selected {
+            font-weight: bold;
+            font-size: large;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<h1>Simple Switcher</h1>
+<h2>Default Properties</h2>
+<simple-switcher id="default">
+    <div>Hello World</div>
+    <div>Goodbye Earth</div>
+    <div>Houston, we have a switcher</div>
+</simple-switcher>
+<button onclick="selectNext('default')">Next</button>
+
+<h2>Overridden Initial Selection</h2>
+<simple-switcher id="overridden" selected-index="1">
+    <div>Hello World</div>
+    <div>Goodbye Earth</div>
+    <div>Houston, we have a switcher</div>
+</simple-switcher>
+<button onclick="selectNext('overridden')">Next</button>
+
+<script>
+    function selectNext(id) {
+        var switcher = document.getElementById(id);
+        if (switcher.selectedIndex === switcher.assignedElements.length - 1) {
+            switcher.selectedIndex = 0;
+        } else {
+            switcher.selectedIndex++;
+        }
+    }
+</script>
+</body>
+</html>
