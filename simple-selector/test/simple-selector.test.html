@@ -1,0 +1,49 @@
+<html>
+<head>
+    <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../../karma-web-components/framework.js"></script>
+
+    <link rel="import" href="../../../test-fixture/test-fixture.html">
+    <link rel="import" href="../simple-selector.html">
+</head>
+<body>
+<test-fixture id="test-fixture">
+    <template>
+        <simple-selector>
+            <div id="apple">Apple</div>
+            <div id="banana">Banana</div>
+            <div id="orange">Orange</div>
+        </simple-selector>
+    </template>
+</test-fixture>
+<script>
+    describe('simple-selector', function () {
+        let selector;
+
+        beforeEach(function () {
+            selector = document.getElementById('test-fixture').create();
+        });
+
+        afterEach(function () {
+            document.getElementById('test-fixture').restore();
+        });
+
+        it('defaults to selecting the first child', function () {
+            expect(selector.selectedIndex).to.be.equal(0);
+            expect(selector.selected).to.be.ok;
+            expect(selector.selected.id).to.be.equal('apple');
+            expect(selector.selected).to.have.class('simple-selected');
+        });
+
+        it('changes the selected element when a child is tapped', function () {
+            document.querySelector('#banana').click();
+            expect(selector.selected).to.be.ok;
+            expect(selector.selected.id).to.be.equal('banana');
+            expect(selector.selected).to.have.class('simple-selected');
+            expect(selector.assignedElements[0]).not.to.have.class('simple-selected');
+            expect(selector.assignedElements[2]).not.to.have.class('simple-selected');
+        });
+    })
+</script>
+</body>
+</html>

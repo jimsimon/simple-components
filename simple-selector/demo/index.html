@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>Simple Selector Demo</title>
+    <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../simple-selector.html">
+
+    <style>
+        .simple-selected {
+            font-weight: bold;
+            font-size: large;
+            color: red;
+        }
+
+        div {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1>Simple Selector</h1>
+<h2>Default Properties</h2>
+<simple-selector>
+    <div>Hello World</div>
+    <div>Goodbye Earth</div>
+    <div>Houston, we have a switcher</div>
+</simple-selector>
+
+<h2>Overridden Initial Selection</h2>
+<simple-selector selected-index="1">
+    <div>Hello World</div>
+    <div>Goodbye Earth</div>
+    <div>Houston, we have a switcher</div>
+</simple-selector>
+</body>
+</html>
