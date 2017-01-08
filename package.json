@@ -56,6 +56,7 @@
   "scripts": {
     "install": "napa",
     "test": "./node_modules/karma/bin/karma start",
-    "demo": "./node_modules/polyserve/bin/polyserve -c node_modules -n simple-components -o"
+    "demo": "./node_modules/polyserve/bin/polyserve -c node_modules -n simple-components -o",
+    "deploy": "bash ./gpages-build.sh jimsimon simple-components 'Jim Simon' jim.j.simon@gmail.com"
   }
 }
