@@ -1,0 +1,49 @@
+<html>
+<head>
+    <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../../karma-web-components/framework.js"></script>
+
+    <link rel="import" href="../../../test-fixture/test-fixture.html">
+    <link rel="import" href="../simple-separator.html">
+</head>
+<body>
+<test-fixture id="test-fixture-without-content">
+    <template>
+        <simple-separator></simple-separator>
+    </template>
+</test-fixture>
+<test-fixture id="test-fixture-with-content">
+    <template>
+        <simple-separator><h1>Hello World!</h1></simple-separator>
+    </template>
+</test-fixture>
+<script>
+    describe("simple-separator", function () {
+
+        afterEach(function () {
+            document.querySelectorAll('test-fixture').forEach(function (testFixture) {
+                testFixture.restore();
+            });
+        });
+
+        it('renders an element', function () {
+            let separator = document.getElementById('test-fixture-without-content').create();
+            expect(separator).to.be.ok;
+        });
+
+        it('hides the content wrapper when there are no child elements', function () {
+            let separator = document.getElementById('test-fixture-without-content').create();
+            let contentWrapper = separator.shadowRoot.querySelector('.content');
+            expect(contentWrapper.hidden).to.be.true;
+        });
+
+        it('renders child elements as content', function () {
+            let separator = document.getElementById('test-fixture-with-content').create();
+            let assignedNodes = separator.shadowRoot.querySelector("slot").assignedNodes();
+            expect(assignedNodes).to.have.length(1);
+            expect(assignedNodes[0].outerHTML).to.be.equal('<h1>Hello World!</h1>');
+        });
+    });
+</script>
+</body>
+</html>

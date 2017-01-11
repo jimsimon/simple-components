@@ -1,0 +1,99 @@
+<link rel="import" href="../../polymer/polymer-legacy.html">
+<!--
+`simple-selector` is an element for responding to the selection of a child element.
+
+ Example:
+ <simple-selector>
+    <div>Apple</div>
+    <div>Banana</div>
+    <div>Orange</div>
+ </simple-selector>
+
+ @demo simple-selector/demo/index.html
+-->
+<dom-module id="simple-selector">
+    <template>
+        <slot id="slot"></slot>
+    </template>
+    <script>
+        class SimpleSelector extends Polymer.LegacyElement {
+            static get is() { return 'simple-selector' }
+
+            static get config () {
+                return {
+                    properties: {
+                        selectedIndex: {
+                            type: Number,
+                            value: 0
+                        },
+                        assignedNodes: Array,
+                        assignedElements: {
+                            type: Array,
+                            computed: '_computeAssignedElements(assignedNodes)',
+                            observer: '_assignedElementsChanged'
+                        },
+                        selected: {
+                            type: Node,
+                            computed: '_computeSelected(selectedIndex, assignedElements)',
+                            observer: '_selectedChanged'
+                        }
+                    }
+                }
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                this.assignedNodes = this.shadowRoot.querySelector('slot').assignedNodes();
+            }
+            disconnectedCallback() {
+                super.disconnectedCallback();
+                this._removeChildListeners(this._assignedElements);
+            }
+            _computeAssignedElements(assignedNodes) {
+                return assignedNodes.filter((node) => node.nodeType === Node.ELEMENT_NODE);
+            }
+            _assignedElementsChanged(newValue, oldValue) {
+                if (oldValue) {
+                    this._removeChildListeners(oldValue);
+                }
+
+                if (newValue) {
+                    this._addChildListeners(newValue);
+                }
+            }
+            _addChildListeners(elements) {
+                elements.forEach((element) => {
+                    this.listen(element,'tap', '_handleSelection');
+                });
+            }
+            _removeChildListeners(elements) {
+                elements.forEach((element) => {
+                    this.unlisten(element, 'tap', '_handleSelection');
+                });
+            }
+            _computeSelected(selectedIndex, assignedElements) {
+                if (assignedElements == null) {
+                    return null;
+                }
+
+                if (selectedIndex !== undefined && selectedIndex >= assignedElements.length || selectedIndex < 0) {
+                    throw new Error("Invalid selectedIndex");
+                }
+                return assignedElements[selectedIndex];
+            }
+            _selectedChanged(newValue, oldValue) {
+                if (oldValue) {
+                    oldValue.classList.remove('simple-selected');
+                }
+                if (newValue) {
+                    newValue.classList.add('simple-selected');
+                }
+            }
+            _handleSelection(event) {
+                const element = event.target;
+                this.selectedIndex = this.assignedElements.indexOf(element);
+            }
+        }
+        customElements.define(SimpleSelector.is, SimpleSelector);
+    </script>
+</dom-module>

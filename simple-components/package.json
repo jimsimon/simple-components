@@ -1,0 +1,63 @@
+{
+  "name": "simple-separator",
+  "version": "1.0.0",
+  "description": "A simple separator component",
+  "main": "index.js",
+  "author": "Jim Simon",
+  "license": "MIT",
+  "dependencies": {
+    "polymer": "https://github.com/Polymer/polymer.git#2.0-preview",
+    "polymer-analyzer": "^2.0.0-alpha.19"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-dom": "^1.4.3",
+    "custom-elements": "https://github.com/webcomponents/custom-elements.git#v1.0.0-alpha.3",
+    "karma": "^1.3.0",
+    "karma-chai": "^0.1.0",
+    "karma-chai-dom": "^1.1.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-mocha": "^1.3.0",
+    "karma-web-components": "^1.0.1",
+    "mocha": "^3.2.0",
+    "napa": "^2.3.0",
+    "polyserve": "^0.15.0",
+    "shadycss": "https://github.com/webcomponents/shadycss.git",
+    "shadydom": "https://github.com/webcomponents/shadydom.git",
+    "test-fixture": "https://github.com/PolymerElements/test-fixture.git#custom-elements-v1",
+    "webcomponentsjs": "https://github.com/webcomponents/webcomponentsjs.git#v1"
+  },
+  "napa": {
+    "iron-component-page": "PolymerElements/iron-component-page#2.0-preview",
+    "hydrolysis": "Polymer/polymer-analyzer#hydrolysis-1.x",
+    "iron-ajax": "PolymerElements/iron-ajax#2.0-preview",
+    "iron-doc-viewer": "PolymerElements/iron-doc-viewer#2.0-preview",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#2.0-preview",
+    "iron-icons": "PolymerElements/iron-icons#2.0-preview",
+    "iron-selector": "PolymerElements/iron-selector#2.0-preview",
+    "app-layout": "PolymerElements/app-layout#2.0-preview",
+    "paper-styles": "PolymerElements/paper-styles#2.0-preview",
+    "paper-button": "PolymerElements/paper-button#2.0-preview",
+    "paper-behaviors": "PolymerElements/paper-behaviors#2.0-preview",
+    "iron-behaviors": "PolymerElements/iron-behaviors#2.0-preview",
+    "font-roboto": "PolymerElements/font-roboto",
+    "marked-element": "PolymerElements/marked-element#2.0-preview",
+    "prism-highlighter": "PolymerElements/prism-highlighter#2.0-preview",
+    "prism-element": "PolymerElements/prism-element#2.0-preview",
+    "iron-icon": "PolymerElements/iron-icon#2.0-preview",
+    "paper-ripple": "PolymerElements/paper-ripple#2.0-preview",
+    "iron-a11y-keys-behavior": "PolymerElements/iron-a11y-keys-behavior#2.0-preview",
+    "iron-meta": "PolymerElements/iron-meta#2.0-preview",
+    "iron-iconset-svg": "PolymerElements/iron-iconset-svg#2.0-preview",
+    "iron-scroll-target-behavior": "PolymerElements/iron-scroll-target-behavior#2.0-preview",
+    "iron-resizable-behavior": "PolymerElements/iron-resizable-behavior#2.0-preview",
+    "marked": "chjj/marked#v0.3.6",
+    "prism": "PrismJS/prism#v1.6.0"
+  },
+  "scripts": {
+    "install": "napa",
+    "test": "./node_modules/karma/bin/karma start",
+    "demo": "./node_modules/polyserve/bin/polyserve -c node_modules -n simple-components -o",
+    "deploy": "bash ./gpages-build.sh jimsimon simple-components 'Jim Simon' jim.j.simon@gmail.com"
+  }
+}

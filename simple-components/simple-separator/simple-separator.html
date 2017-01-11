@@ -1,0 +1,70 @@
+<link rel="import" href="../../polymer/polymer.html">
+<!--
+`simple-separator` is an element for indicating the separation of sections of content in a page.
+
+ Example:
+ <simple-separator><h1>A level 1 heading!</h1></simple-separator>
+
+ The following custom properties and mixins are also available for styling:
+
+ Custom property | Description | Default
+ ----------------|-------------|----------
+ `--separator-line-color` | The color for the line | `black`
+
+ @demo simple-separator/demo/index.html
+-->
+<dom-module id="simple-separator">
+    <template>
+        <style>
+            :host {
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .line {
+                border-top: 1px solid var(--separator-line-color, black);
+                height: 0;
+                width: 100%;
+            }
+
+            .content {
+                text-align: center;
+                white-space: nowrap;
+                margin: 0 18px;
+            }
+        </style>
+        <span class="line"></span>
+        <span class="content" hidden="[[!_assignedElementsExist]]"><slot id="slot"></slot></span>
+        <span class="line"></span>
+    </template>
+    <script>
+        Polymer({
+            is: 'simple-separator',
+            hostAttributes: {
+                role: 'separator'
+            },
+            properties: {
+                _assignedNodes: Array,
+                _assignedElements: {
+                    type: Array,
+                    computed: '_computeAssignedElements(_assignedNodes)'
+                },
+                _assignedElementsExist: {
+                    type: Boolean,
+                    computed: '_computeAssignedElementsExist(_assignedElements)'
+                }
+            },
+            attached: function () {
+                this._assignedNodes = this.$.slot.assignedNodes();
+            },
+            _computeAssignedElements: function (assignedNodes) {
+                return assignedNodes.filter((node) => node.nodeType === Node.ELEMENT_NODE);
+            },
+            _computeAssignedElementsExist(assignedElements) {
+                return assignedElements.length > 0;
+            }
+        });
+    </script>
+</dom-module>
